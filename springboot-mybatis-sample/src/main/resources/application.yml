@@ -1,0 +1,85 @@
+spring:
+  datasource:
+    # 连接池配置（https://github.com/alibaba/druid/blob/master/druid-spring-boot-starter/src/test/resources/application.properties）
+    druid:
+      # 数据源名称（用于监控（http://ip:port/druid/）时区分多个不同的数据源）
+      name: test-database
+      # 数据库链接地址
+      url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+      # 数据库连接用户名
+      username: root
+      # 数据库连接密码
+      password: root
+      # 数据库链接驱动
+      driver-class-name: com.mysql.jdbc.Driver
+      # 初始化连接池个数
+      initial-size: 2
+      # 最小连接池个数
+      min-idle: 2
+      # 最大连接池个数
+      max-active: 20
+      # 配置获取连接等待超时的时间，单位毫秒，缺省启用公平锁，并发效率会有所下降
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # 用来检测连接是否有效的sql，要求是一个查询语句。
+      # 如果validationQuery为 null，testOnBorrow、testOnReturn、testWhileIdle 都不会起作用
+      validation-query: select 1
+      # 申请连接的时候检测链接是否有效
+      test-while-idle: true
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-borrow: false
+      # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-return: false
+      # 启用 PreparedStatement Cache
+      pool-prepared-statements: true
+      # PreparedStatement Cache 最大数量
+      max-pool-prepared-statement-per-connection-size: 20
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 合并多个DruidDataSource的监控数据
+      use-global-data-source-stat: true
+      # 通过别名的方式配置扩展插件，多个英文逗号分隔，常用的插件有：
+      # 监控统计用的filter:stat
+      # 日志用的filter:log4j
+      # 防御sql注入的filter:wall
+      filters: stat,wall,log4j2
+      # StatFilter 配置
+      web-stat-filter:
+        # 启用
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # StatViewServlet 配置
+      stat-view-servlet:
+        # 启用
+        enabled: true
+        url-pattern: "/druid/*"
+        # 允许访问的IP
+        allow: 127.0.0.1,192.168.1.222
+        # 登录账户
+        login-username: admin
+        # 登录密码
+        login-password: admin
+        # 禁止的IP
+        deny: 192.168.2.223
+        # 是否允许重置
+        reset-enable: true
+      # Spring监控AOP切入点，多个用英文逗号分隔
+      aop-patterns: org.fanlychie.mybatis.sample.mapper.*
+
+mybatis:
+  # mybatis 配置文件
+  config-location: classpath:mybatis-config.xml
+  # mapper.xml 配置文件路径
+  mapper-locations: classpath:mapper/*.xml
+  # 别名
+  type-aliases-package: org.fanlychie.mybatis.sample.model
+
+# 日志级别配置
+logging:
+  level:
+    root: INFO
+    org.fanlychie.mapper: DEBUG
