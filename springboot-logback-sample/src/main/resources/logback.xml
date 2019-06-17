@@ -1,46 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <!-- 引用 Spring Boot 的 defaults.xml 的配置 -->
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <!-- 定义 LOG_FILE 变量 -->
-    <!-- 日志文件优先使用 logging.file 的值，如果没有则使用 logging.path 的值，如果还没有则放入临时目录 -->
-    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
-    <!-- 自定义日志级别 -->
-    <logger name="org.fanlychie" level="DEBUG"/>
-    <!-- 开发环境日志 -->
-    <springProfile name="dev">
-        <!-- 引用 Spring Boot 的 console-appender.xml 的配置 -->
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-        <!-- root 日志级别 -->
-        <root level="WARN">
+<configuration debug="false">
+    <!-- 自定义属性信息 -->
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36} : %msg%n"/>
+    <property name="LOG_FILE" value="my.log"/>
+    <property name="ERROR_LOG_FILE" value="error.log"/>
+    <property name="LOG_FILE_MAX_SIZE" value="1MB"/>
+    <property name="LOG_FILE_KEEP_MAX_DAYS" value="30"/>
+    <!-- 控制台日志配置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 日志文件输出格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 文件日志配置 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!-- 日志文件输出格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 日志文件存储位置 -->
+        <file>${LOG_FILE}</file>
+        <!-- 日志文件滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 历史日志名称 -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd_HH-mm}.%i</fileNamePattern>
+            <!-- 单个日志文件允许写入的最大文件大小 -->
+            <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
+            <!-- 历史日志文件最大保留的天数 -->
+            <maxHistory>${LOG_FILE_KEEP_MAX_DAYS}</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 文件日志配置 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 只记录ERROR级别的日志信息 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 设置过滤级别 -->
+            <level>ERROR</level>
+            <!-- 用于配置符合过滤条件的操作 -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 用于配置不符合过滤条件的操作 -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <!-- 日志文件输出格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 日志文件存储位置 -->
+        <file>${ERROR_LOG_FILE}</file>
+        <!-- 日志文件滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 历史日志名称 -->
+            <fileNamePattern>${ERROR_LOG_FILE}.%d{yyyy-MM-dd_HH-mm}.%i</fileNamePattern>
+            <!-- 单个日志文件允许写入的最大文件大小 -->
+            <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
+            <!-- 历史日志文件最大保留的天数 -->
+            <maxHistory>${LOG_FILE_KEEP_MAX_DAYS}</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 默认的logger -->
+    <root level="INFO">
+        <!-- 写到控制台 -->
+        <appender-ref ref="CONSOLE"/>
+        <!-- 写到文件中 -->
+        <appender-ref ref="FILE"/>
+        <!-- 只记录ERROR级别的日志 -->
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+    <!-- 多环境日志配置 -->
+    <!-- 开发和测试环境 -->
+    <springProfile name="dev,test">
+        <logger name="org.fanlychie" level="DEBUG">
             <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-    <!-- 生产环境日志 -->
-    <springProfile name="prod">
-        <!-- 引用 Spring Boot 的 console-appender.xml 的配置 -->
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-        <!-- 自定义文件日志 -->
-        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <encoder>
-                <!-- 使用默认的日志格式 -->
-                <pattern>${FILE_LOG_PATTERN}</pattern>
-            </encoder>
-            <!-- 日志文件 -->
-            <file>${LOG_FILE}</file>
-            <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-                <!-- 如果日志文件超出大小限制, 则以 ${LOG_FILE}.1, ${LOG_FILE}.2... 备份 -->
-                <fileNamePattern>${LOG_FILE}.%i</fileNamePattern>
-            </rollingPolicy>
-            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-                <!-- 超出大小限制开启一个新的文件 -->
-                <MaxFileSize>10MB</MaxFileSize>
-            </triggeringPolicy>
-        </appender>
-        <!-- root 日志级别 -->
-        <root level="WARN">
             <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+    <!-- 生产环境配置 -->
+    <springProfile name="prod">
+        <logger name="org.fanlychie.mapper" level="DEBUG">
             <appender-ref ref="CONSOLE"/>
-        </root>
+            <appender-ref ref="FILE"/>
+        </logger>
     </springProfile>
 </configuration>
