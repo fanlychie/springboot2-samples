@@ -1,6 +1,6 @@
 ## 日志级别
   # logging.level.* = TRACE/DEBUG/INFO/WARN/ERROR/FATAL/OFF
-  # `*` 可以是根级别 `root`, 也可以是指定的包名称
+  # "*"可以是根级别"root"(如果没有特殊的指定, 就采用此作为默认的), 也可以是指定的包名称(特殊指定)
 ## 日志存储
 ## 超过10M生成一个新的文件
   # logging.file = logs/logfile.log (相对项目根目录的路径)
@@ -16,7 +16,7 @@ logging:
     root: INFO
     org.springframework: INFO
   # 日志存储
-  file: mylog.log
+  file: my.log
   # 日志格式
   pattern:
     console: "%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36} : %msg%n"
