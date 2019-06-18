@@ -162,3 +162,25 @@ logging:
     </springProfile>
 </configuration>
 ```
+
+在`src\test\resources\`目录下创建`logback-test.xml`文件：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 控制台日志配置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36} : %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <!-- 写到控制台 -->
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <!-- 自定义logger -->
+    <logger name="org.fanlychie" level="DEBUG"/>
+</configuration>
+```
