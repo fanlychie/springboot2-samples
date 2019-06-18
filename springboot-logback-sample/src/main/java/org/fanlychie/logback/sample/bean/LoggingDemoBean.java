@@ -15,10 +15,7 @@ public class LoggingDemoBean implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 0; i < 20000; i++) {
-            log.debug("=====>> log " + i);
-        }
-//        log.debug("=====> log something ...");
+        log.debug("=====> log something ...");
     }
 
 }

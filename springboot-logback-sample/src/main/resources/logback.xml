@@ -58,7 +58,7 @@
             <maxHistory>${LOG_FILE_KEEP_MAX_DAYS}</maxHistory>
         </rollingPolicy>
     </appender>
-    <!-- 默认的logger(如果没有特殊的指定, 就采用此默认的) -->
+    <!-- rootLogger(如果没有特殊的指定, 就采用此作为默认的) -->
     <root level="INFO">
         <!-- 写到控制台 -->
         <appender-ref ref="CONSOLE"/>
@@ -71,7 +71,8 @@
     <!-- 开发和测试环境 -->
     <springProfile name="dev,test">
         <!-- 自定义logger -->
-        <logger name="org.fanlychie" level="DEBUG">
+        <!-- additivity="false"：屏蔽rootLogger, 避免日志信息重复输出到控制台 -->
+        <logger name="org.fanlychie" level="DEBUG" additivity="false">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE"/>
         </logger>
@@ -79,7 +80,7 @@
     <!-- 生产环境配置 -->
     <springProfile name="prod">
         <!-- 自定义logger -->
-        <logger name="org.fanlychie.mapper" level="DEBUG">
+        <logger name="org.fanlychie.mapper" level="DEBUG" additivity="false">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE"/>
         </logger>
