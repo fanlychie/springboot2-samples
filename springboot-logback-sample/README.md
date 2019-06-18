@@ -2,7 +2,7 @@
 
 ---
 
-##### 配置样例
+##### 1. 配置样例
 
 在`application.yml`中配置如下：
 
@@ -31,7 +31,7 @@ logging:
     file: "%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36} : %msg%n"
 ```
 
-##### 日志格式
+##### 2. 日志格式
 
 | 参数 | 描述 |
 | :---- | :---- |
@@ -48,7 +48,7 @@ logging:
 
 > `%date{pattern}`：模式语法与`java.text.SimpleDateFormat`兼容。如`%date{yyyy-MM-dd HH:mm:ss}`
 
-##### 日志信息宽度和对齐方式
+##### 3. 日志信息宽度和对齐方式
 
 以`%logger`为样例，如下：
 
@@ -59,7 +59,7 @@ logging:
 | %.20logger | 左对齐，最大的宽度是20，如果长度超出20，将左边多出的字符直接丢掉 |
 | %30.50logger | 最小宽度是30，如果长度不足30则左补空格右对齐；如果长度超出30且不足50则左对齐；如果长度超出50则将左边多出的字符直接丢掉 |
 
-##### 扩展Logback
+##### 4. 扩展Logback
 
 `Spring Boot`允许我们通过扩展`Logback`进行更高级的配置。`Spring Boot`默认从类路径加载的日志配置文件次序为：
 
@@ -163,7 +163,7 @@ logging:
 </configuration>
 ```
 
-在`src\test\resources\`目录下创建`logback-test.xml`文件：
+在`src\test\resources\`目录下创建`logback-test.xml`文件(可选, 用于单元测试时输出日志到控制台)：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
