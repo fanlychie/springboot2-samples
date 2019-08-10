@@ -1,0 +1,51 @@
+## tomcat 配置
+server:
+  tomcat:
+    # 最大连接数, 当达到阀值后系统至多还能接受`accept-count`配置的连接数量
+    max-connections: 10000
+    # 当没有可使用的工作线程时, 等待的最大队列长度
+    accept-count: 100
+    # 最大工作线程数量
+    max-threads: 200
+    # 最小工作线程数量
+    min-spare-threads: 10
+    # 解码URI的字符集编码
+    uri-encoding: UTF-8
+  # 运行时端口
+  port: 8080
+  # 连接超时时间
+  connection-timeout: 5000
+  servlet:
+    # 上下文访问路径
+    context-path: /
+    session:
+      # 会话过期时间
+      timeout: 30m
+
+## actuator 配置
+management:
+  server:
+    # 监控应用端口
+    port: 9090
+    servlet:
+      # 上下文访问路径
+      context-path: /
+  endpoint:
+    shutdown:
+      # 允许通过接口(POST方式)安全关闭SpringBoot应用
+      enabled: true
+    health:
+      # 显示健康信息详情
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        # 激活所有的Endpoints
+        include: "*"
+
+# 安全验证
+spring:
+  security:
+    user:
+      name: admin
+      password: admin123

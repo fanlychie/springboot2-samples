@@ -1,0 +1,39 @@
+## tomcat 配置
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  # 运行时端口
+  port: 8080
+  # 连接超时时间
+  connection-timeout: 5000
+  servlet:
+    # 上下文访问路径
+    context-path: /
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1/test?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    # 连接池配置
+    hikari:
+      auto-commit: true          # 自动提交
+      connection-timeout: 30000  # 连接超时
+      idle-timeout: 600000       # 连接在池中闲置的最长时间
+      max-lifetime: 1800000      # 连接在池中最长的生命周期
+      minimum-idle: 30           # 池中维护的最小空闲连接数
+      maximum-pool-size: 30      # 池中维护的最大连接数
+  jpa:
+    # hibernate配置
+    hibernate:
+      ddl-auto: update           # 应用启动时，如果表不存在则创建；如果已经存在则更新表结构，表中原有的数据行不会被删除
+    show-sql: true               # 显示 SQL
+    properties:
+      hibernate:
+        format_sql: true         # 格式化 SQL
+        enable_lazy_load_no_trans: true # 懒加载
+  # 禁用缓存, 否则修改页面等需要重新编译或重启
+  thymeleaf:
+    cache: false

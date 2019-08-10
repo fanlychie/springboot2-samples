@@ -1,0 +1,43 @@
+## tomcat 配置
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  # 运行时端口
+  port: 8080
+  # 连接超时时间
+  connection-timeout: 5000
+  servlet:
+    # 上下文访问路径
+    context-path: /
+
+spring:
+  kafka:
+    ## 服务代理, 多个用逗号分隔
+    bootstrap-servers: 127.0.0.1:9092
+    ## 生产者配置
+    producer:
+      # 重试次数。如果设置大于0，将启用失败重试机制。
+      # 这潜在改变数据先后顺序的风险。如有两个消息发送到同一个partition, 若第一个消息发送失败第二个发送成功, 则第二个消息就会比第一个消息更早的到达
+      retries: 0
+      # 批处理大小
+      batch-size: 16384
+      # 用于缓存等待发送消息的总内存大小(生产者产生数据的速度大于向broker发送数据的速度时)
+      buffer-memory: 33554432
+      # 键序列化
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 值序列化
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    ## 消费者配置
+    consumer:
+      # 常用值：
+      # earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+      # latest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+      auto-offset-reset: earliest
+      # 键解码
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 值解码
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 是否开启自动提交
+      enable-auto-commit: true
+      # 组, 一个组可包含多个消费者
+      group-id: test-consumer-group

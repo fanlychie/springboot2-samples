@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>个人中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+    <fieldset>
+        <legend>User Info</legend>
+        <p>
+            Welcome <th:block sec:authentication="principal.username"/> ( id = <th:block th:text="${session.user.id}"/> ).
+        </p>
+        <p>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/add}" th:text="添加用户"/>
+            </th:block>
+            <a th:href="@{/center}" th:text="刷新"/>
+            <a th:href="@{/}" th:text="返回首页"/>
+            <a th:href="@{/logout}" th:text="退出"/>
+        </p>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,38 @@
+spring:
+  # redis 配置
+  redis:
+    # 使用的数据库索引
+    database: 0
+    # 如果有密码
+    password: 123456
+    # 连接超时时间
+    timeout: 3000
+    # 哨兵配置
+    sentinel:
+      master: mymaster
+      nodes:
+        - 192.168.182.101:26379
+        - 192.168.182.101:26380
+        - 192.168.182.101:26381
+    # lettuce 连接池配置
+    lettuce:
+      pool:
+        # 池中允许的最大连接数(负值表示无限制)
+        max-active: 8
+        # 池中允许的最大空闲连接数(负值表示无限制)
+        max-idle: 8
+        # 当池中没有可用连接时, 获取连接等待的时间(负值表示无限制)
+        max-wait: -1ms
+        # 池中维护的最小连接数
+        min-idle: 2
+  # 缓存配置
+  cache:
+    redis:
+      # 是否允许缓存 null 值
+      cache-null-values: true
+      # 对象过期时间
+      time-to-live: 10m
+      # 缓存对象的 KEY 的前缀
+      key-prefix: "RDS_"
+      # 是否允许使用前缀
+      use-key-prefix: false

@@ -1,0 +1,72 @@
+body {
+    background: #f3f3f3;
+}
+
+fieldset {
+    width: 600px;
+    margin: 0 auto;
+}
+
+input {
+    padding-left: 4px;
+    height: 28px;
+    width: 592px;
+    border: 1px #d6d5ce solid;
+    border-radius: 2px;
+}
+
+input[type="checkbox"] {
+    padding: 0;
+    width: 28px;
+    height: 14px;
+    margin-left: -6px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 6px;
+}
+
+label[for="remember-me"] {
+    font-size: 14px;
+    display: inline;
+    letter-spacing: 1px;
+}
+
+button {
+    width: 598px;
+    height: 40px;
+    border-width: 0px;
+    border-radius: 2px;
+    background: #1E90FF;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 4px;
+}
+
+p.error {
+    padding: 6px 0;
+    text-align: center;
+    background-color: #DA70D6;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+h1.error {
+    text-align: center;
+    font-family: monospace;
+    font-size: 68px;
+    text-shadow: #464444 0.1em 0.1em 0.2em;
+}
+
+h2 {
+    text-align: center;
+    font-family: monospace;
+    font-size: 32px;
+    text-shadow: #464444 0.1em 0.1em 0.2em;
+}

@@ -1,0 +1,42 @@
+## tomcat
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+project: Spring Boot 2.x Property Sample
+version: 0.0.1-SNAPSHOT
+author-email: fanlychie@yeah.net
+
+administrators:
+  username: admin
+  password: admin
+
+contact:
+  name: fanlychie
+  mail: fanlychie@yeah.net
+  addr: 广东省广州市天河区天河路228号
+
+visitor:
+  username: guest
+  password: guest123*
+  permissions: SELECT, UPDATE
+  buttons:
+    - VIEW
+    - DOWNLOAD
+  media-types:
+    - pdf
+    - doc
+  menus:
+    - name: INDEX
+      url: http://localhost:8080/index
+    - name: CENTER
+      url: http://localhost:8080/center
+  info:
+    app-name: ${project}
+    app-version: ${version :1.0-SNAPSHOT}
+
+random-seed:
+  random-number: ${random.int}
+  random-uuid: ${random.uuid}
+  random-string: ${random.value}
