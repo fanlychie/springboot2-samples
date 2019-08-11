@@ -19,7 +19,7 @@ public class LogoutSuccessHandlerImpl extends SimpleUrlLogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String username = ((UserInfoDetails) authentication.getPrincipal()).getUsername();
+        String username = ((Principal) authentication.getPrincipal()).getUsername();
         System.out.println("======>> " + username + " 已退出登录");
         super.onLogoutSuccess(request, response, authentication);
     }

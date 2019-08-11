@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * Created by fanlychie on 2019/7/8.
  */
-public class UserInfoDetails implements UserDetails {
+public class Principal implements UserDetails {
 
     private static final long serialVersionUID = 9092499507746161929L;
 
@@ -19,13 +19,13 @@ public class UserInfoDetails implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserInfoDetails(User user, Collection<? extends GrantedAuthority> authorities) {
+    public Principal(User user, Collection<? extends GrantedAuthority> authorities) {
         this.user = user;
         this.authorities = authorities;
     }
 
-    public Long getId() {
-        return user.getId();
+    public User getUser() {
+        return user;
     }
 
     @Override
@@ -65,8 +65,8 @@ public class UserInfoDetails implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof UserInfoDetails) {
-            return getUsername().equals(((UserInfoDetails) o).getUsername());
+        if (o instanceof Principal) {
+            return getUsername().equals(((Principal) o).getUsername());
         }
         return false;
     }

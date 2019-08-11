@@ -20,8 +20,8 @@ public class AuthenticationSuccessHandlerImpl extends SavedRequestAwareAuthentic
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        UserInfoDetails user = (UserInfoDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        request.getSession().setAttribute("user", user);
+        Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        request.getSession().setAttribute("principal", principal);
         super.onAuthenticationSuccess(request, response, authentication);
     }
 

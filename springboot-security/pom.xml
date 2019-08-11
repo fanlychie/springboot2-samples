@@ -52,6 +52,18 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>5.1.6.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
         <!-- 用于禁用模板文件缓存和启动热加载 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

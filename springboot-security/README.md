@@ -565,7 +565,7 @@ public interface UserService extends UserDetailsService {
 import org.fanlychie.security.sample.dao.UserRepository;
 import org.fanlychie.security.sample.model.Role;
 import org.fanlychie.security.sample.model.User;
-import org.fanlychie.security.sample.security.UserInfoDetails;
+import org.fanlychie.security.sample.security.Principal;
 import org.fanlychie.security.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -592,7 +592,7 @@ public class UserServiceImpl implements UserService {
                 for (Role role : user.getRoles()) {
                     authorities.add(new SimpleGrantedAuthority(role.getName()));
                 }
-                return new UserInfoDetails(user, authorities);
+                return new Principal(user, authorities);
             }
         }
         throw new UsernameNotFoundException("user \"" + username + "\" does not exits.");

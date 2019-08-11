@@ -565,7 +565,7 @@ public interface UserService extends UserDetailsService {
 import org.fanlychie.security.sample.dao.UserRepository;
 import org.fanlychie.security.sample.model.Role;
 import org.fanlychie.security.sample.model.User;
-import org.fanlychie.security.sample.security.UserInfoDetails;
+import org.fanlychie.security.sample.security.Principal;
 import org.fanlychie.security.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

@@ -10,7 +10,9 @@
     <fieldset>
         <legend>User Info</legend>
         <p>
-            Welcome <th:block sec:authentication="principal.username"/> ( id = <th:block th:text="${session.user.id}"/> ).
+            <th:block th:if="${session.principal != null}">
+                Welcome <th:block sec:authentication="principal.username"/> ( id = <th:block th:text="${session.principal.user.id}"/> ).
+            </th:block>
         </p>
         <p>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
