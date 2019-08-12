@@ -1,6 +1,5 @@
 package org.fanlychie.jdbc.sample.test;
 
-import org.fanlychie.jdbc.sample.JdbcSampleApplication;
 import org.fanlychie.jdbc.sample.dao.BankAccountDao;
 import org.fanlychie.jdbc.sample.exception.TransactionException;
 import org.fanlychie.jdbc.sample.model.BankAccount;
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Created by fanlychie on 2019/6/5.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {JdbcSampleApplication.class})
+@SpringBootTest
 public class JdbcSampleApplicationTest {
 
     @Autowired
