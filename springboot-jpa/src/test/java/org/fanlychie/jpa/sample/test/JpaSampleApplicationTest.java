@@ -4,6 +4,7 @@ import org.fanlychie.jpa.sample.JpaSampleApplication;
 import org.fanlychie.jpa.sample.dao.EmployeeRepository;
 import org.fanlychie.jpa.sample.entity.Employee;
 import org.fanlychie.jpa.sample.enums.Sex;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -33,11 +37,8 @@ public class JpaSampleApplicationTest {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    /**
-     * 保存
-     */
-    @Test
-    public void testSave() {
+    @Before
+    public void before() {
         Employee e = new Employee();
         e.setAge(26);
         e.setCreateTime(new Date());
@@ -45,11 +46,10 @@ public class JpaSampleApplicationTest {
         e.setName("Lychie Fan");
         e.setSalary(new BigDecimal("20100"));
         e.setSex(Sex.MALE);
-        e.setHiredate(Date.from(
-                LocalDate.of(2018, Month.JUNE, 1)
-                        .atStartOfDay(ZoneId.systemDefault())
-                        .toInstant()));
-        employeeRepository.save(e);
+        e.setHiredate(Date.from(LocalDate.of(2018, Month.JUNE, 1)
+                .atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        e = employeeRepository.save(e);
+        assertNotNull(e.getId());
     }
 
     /**
@@ -57,15 +57,18 @@ public class JpaSampleApplicationTest {
      */
     @Test
     public void testFindById() {
-        System.out.println(employeeRepository.findById(1L));
+        Optional<Employee> employee = employeeRepository.findById(1L);
+        assertTrue(employee.isPresent());
+        assertNotNull(employee.get());
+        System.out.println(employee.get());
     }
 
     /**
-     * 删除一个不存在的ID记录
+     * 删除一个不存在的ID记录, 抛出异常EmptyResultDataAccessException
      */
-    @Test
+    @Test(expected = Exception.class)
     public void testDeleteById() {
-        employeeRepository.deleteById(10000L);
+        employeeRepository.deleteById(Long.MAX_VALUE);
     }
 
     /**
