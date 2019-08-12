@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS `bank_account`;
+CREATE TABLE `bank_account` (
+  `ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(16) NOT NULL,
+  `BALANCE` double DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
