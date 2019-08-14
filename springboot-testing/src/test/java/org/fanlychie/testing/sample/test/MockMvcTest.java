@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,11 +29,22 @@ public class MockMvcTest {
     }
 
     @Test
-    public void testQuery() throws Exception {
-        mvc.perform(post("/demo/query")
-                    .param("keyword", "SpringBoot"))
+    public void testEcho() throws Exception {
+        mvc.perform(post("/demo/echo")
+                    .param("msg", "SpringBoot"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("SpringBoot"))
+                .andDo(print());
+    }
+
+    @Test
+    public void testEchoJson() throws Exception {
+        mvc.perform(post("/demo/echo/json")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    .content("{'id':1002,'content':'Hello World'}"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.content").value("Hello World"))
                 .andDo(print());
     }
 
@@ -40,7 +52,7 @@ public class MockMvcTest {
     public void testHello() throws Exception {
         mvc.perform(post("/demo/hello"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.content").value("Hello"))
                 .andDo(print());
     }
 
