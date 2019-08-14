@@ -41,7 +41,7 @@ public class MockMvcTest {
     public void testEchoJson() throws Exception {
         mvc.perform(post("/demo/echo/json")
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
-                    .content("{'id':1002,'content':'Hello World'}"))
+                    .content("{\"id\":\"1002\",\"content\":\"Hello World\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.content").value("Hello World"))
