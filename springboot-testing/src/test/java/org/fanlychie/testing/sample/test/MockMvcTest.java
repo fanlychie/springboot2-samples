@@ -49,12 +49,13 @@ public class MockMvcTest {
     }
 
     @Test
-    public void testHello() throws Exception {
-        mvc.perform(post("/demo/hello"))
+    public void testForm() throws Exception {
+        mvc.perform(post("/demo/form")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("content", "Hello"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello"))
+                .andExpect(content().string("SUCCESS"))
                 .andDo(print());
     }
-
 
 }
