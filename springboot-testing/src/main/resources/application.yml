@@ -1,11 +1,8 @@
-## tomcat 配置
+## 容器配置
 server:
   tomcat:
     uri-encoding: UTF-8
-  # 运行时端口
   port: 8080
-  # 连接超时时间
   connection-timeout: 5000
   servlet:
-    # 上下文访问路径
     context-path: /

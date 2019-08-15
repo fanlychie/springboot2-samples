@@ -11,4 +11,9 @@ public class MessageService {
         return message != null && StringUtils.hasText(message.getContent());
     }
 
+    public boolean send(Message message) {
+        System.out.println(">>>>>> send [ " + message + " ]");
+        return true;
+    }
+
 }

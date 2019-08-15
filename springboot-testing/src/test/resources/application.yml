@@ -1,0 +1,36 @@
+## 容器配置
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8080
+  connection-timeout: 5000
+  servlet:
+    context-path: /
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:h2:mem:test
+    username: dev
+    password: dev
+    driver-class-name: org.h2.Driver
+    # 连接池配置
+    hikari:
+      auto-commit: true          # 自动提交
+      connection-timeout: 30000  # 连接超时
+      idle-timeout: 600000       # 连接在池中闲置的最长时间
+      max-lifetime: 1800000      # 连接在池中最长的生命周期
+      minimum-idle: 30           # 池中维护的最小空闲连接数
+      maximum-pool-size: 30      # 池中维护的最大连接数
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    # hibernate配置
+    hibernate:
+      ddl-auto: update           # 应用启动时，如果表不存在则创建；如果已经存在则更新表结构，表中原有的数据行不会被删除
+    show-sql: true               # 显示 SQL
+    properties:
+      hibernate:
+        format_sql: true         # 格式化 SQL
