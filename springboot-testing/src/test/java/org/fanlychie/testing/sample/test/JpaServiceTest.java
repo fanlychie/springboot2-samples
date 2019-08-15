@@ -29,7 +29,7 @@ public class JpaServiceTest {
     }
 
     @Test
-    public void testFind() {
+    public void testFindAll() {
         List<User> users = userService.findAll();
         assertThat(users).isNotEmpty();
         assertThat(users.size()).isEqualTo(1);
