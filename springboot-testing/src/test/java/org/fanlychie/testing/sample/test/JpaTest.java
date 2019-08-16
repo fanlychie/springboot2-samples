@@ -13,6 +13,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * JPA 单元测试
+ *
+ * @author fanlychie
+ * @since 2019/08/16
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class JpaTest {
