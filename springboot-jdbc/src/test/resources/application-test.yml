@@ -2,6 +2,8 @@ spring:
   # 数据源配置
   datasource:
     url: jdbc:h2:mem:test
+    schema: schema.sql
+    data: data.sql
     username: root
     password: root
     driver-class-name: org.h2.Driver
@@ -17,11 +19,3 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
-mybatis:
-  # mybatis 配置文件
-  config-location: classpath:mybatis-config.xml
-  # mapper.xml 配置文件路径
-  mapper-locations: classpath:mapper/*.xml
-  # 别名
-  type-aliases-package: org.fanlychie.mybatis.sample.model

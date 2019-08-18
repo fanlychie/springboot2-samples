@@ -27,7 +27,7 @@ public class RedisSampleApplicationTest {
 
     @Test
     public void testFetchByName() {
-        System.out.println(userService.fetchByName("Jerry"));
+        System.out.println(userService.fetchByName("Cat"));
     }
 
 }
