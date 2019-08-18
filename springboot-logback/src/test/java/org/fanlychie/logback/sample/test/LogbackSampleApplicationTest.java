@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Created by fanlychie on 2019/6/16.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {LogbackSampleApplication.class})
+@SpringBootTest
 public class LogbackSampleApplicationTest {
 
     @Test

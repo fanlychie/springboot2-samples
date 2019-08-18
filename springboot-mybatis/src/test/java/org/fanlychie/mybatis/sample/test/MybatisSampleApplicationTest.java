@@ -1,21 +1,25 @@
 package org.fanlychie.mybatis.sample.test;
 
-import org.fanlychie.mybatis.sample.MybatisSampleApplication;
 import org.fanlychie.mybatis.sample.mapper.EmployeeMapper;
 import org.fanlychie.mybatis.sample.model.Employee;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Created by fanlychie on 2019/6/5.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {MybatisSampleApplication.class})
+@SpringBootTest
+@TestPropertySource("/application-test.yml")
 public class MybatisSampleApplicationTest {
 
     @Autowired
@@ -24,9 +28,8 @@ public class MybatisSampleApplicationTest {
     @Test
     public void testFindAll() {
         List<Employee> employees = employeeMapper.findAll();
-        for (Employee e : employees) {
-            System.out.println(e);
-        }
+        assertThat(employees).isNotEmpty().isEqualTo(2);
+        employees.forEach(System.out::println);
     }
 
     @Test
@@ -35,7 +38,7 @@ public class MybatisSampleApplicationTest {
         e.setName("赵六");
         e.setAge(18);
         long result = employeeMapper.save(e);
-        System.out.println(result);
+        assertThat(result).isEqualTo(1);
     }
 
 }

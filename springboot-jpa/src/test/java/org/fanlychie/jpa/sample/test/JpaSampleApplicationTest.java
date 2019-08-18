@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
@@ -21,9 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -34,24 +33,25 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 @SpringBootTest
 public class JpaSampleApplicationTest {
 
+    private int count = 1;
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @Before
+    @Repeat(5)
     public void before() {
-        for (int i = 1; i <= 5; i++) {
-            Employee e = new Employee();
-            e.setName("Fanlychie" + i);
-            e.setCreateTime(new Date());
-            e.setAge(ThreadLocalRandom.current().nextInt(10) + 18);
-            e.setMarried(ThreadLocalRandom.current().nextBoolean());
-            e.setSalary(new BigDecimal(String.valueOf(ThreadLocalRandom.current().nextInt(10000) + 8000)));
-            e.setSex(ThreadLocalRandom.current().nextBoolean() ? Sex.MALE : Sex.FEMALE);
-            e.setHiredate(Date.from(LocalDate.of(2018, Month.JUNE, ThreadLocalRandom.current().nextInt(30) + 1)
-                    .atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            e = employeeRepository.save(e);
-            assertNotNull(e.getId());
-        }
+        Employee e = new Employee();
+        e.setName("Fanlychie" + count++);
+        e.setCreateTime(new Date());
+        e.setAge(ThreadLocalRandom.current().nextInt(10) + 18);
+        e.setMarried(ThreadLocalRandom.current().nextBoolean());
+        e.setSalary(new BigDecimal(String.valueOf(ThreadLocalRandom.current().nextInt(10000) + 8000)));
+        e.setSex(ThreadLocalRandom.current().nextBoolean() ? Sex.MALE : Sex.FEMALE);
+        e.setHiredate(Date.from(LocalDate.of(2018, Month.JUNE, ThreadLocalRandom.current().nextInt(30) + 1)
+                .atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        e = employeeRepository.save(e);
+        assertThat(e.getId()).isNotNull();
     }
 
     /**
@@ -60,8 +60,8 @@ public class JpaSampleApplicationTest {
     @Test
     public void testFindById() {
         Optional<Employee> employee = employeeRepository.findById(1L);
-        assertTrue(employee.isPresent());
-        assertNotNull(employee.get());
+        assertThat(employee.isPresent()).isTrue();
+        assertThat(employee.get()).isNotNull();
         System.out.println(employee.get());
     }
 
@@ -88,11 +88,9 @@ public class JpaSampleApplicationTest {
     @Test
     public void testFindAllByOrder() {
         Iterable<Employee> employees = employeeRepository.findAll(Sort.by(DESC, "salary")
-                        .and(Sort.by(ASC, "age")));
-        assertNotNull(employees);
-        for (Employee employee : employees) {
-            System.out.println(employee);
-        }
+                .and(Sort.by(ASC, "age")));
+        assertThat(employees).isNotNull();
+        employees.forEach(System.out::println);
     }
 
     /**
@@ -103,13 +101,11 @@ public class JpaSampleApplicationTest {
         Page<Employee> page = employeeRepository.findAll(PageRequest.of(0, 3,
                 Sort.by(DESC, "salary")
                         .and(Sort.by(ASC, "age"))));
-        assertNotNull(page);
-        assertNotNull(page.getContent());
-        assertTrue(page.hasContent());
-        assertThat(page.getNumberOfElements(), greaterThan(0));
-        for (Employee employee : page.getContent()) {
-            System.out.println(employee);
-        }
+        assertThat(page).isNotNull();
+        assertThat(page.getContent()).isNotNull();
+        assertThat(page.hasContent()).isTrue();
+        assertThat(page.getNumberOfElements()).isGreaterThan(1);
+        page.getContent().forEach(System.out::println);
         System.out.println(page.getSize());
         System.out.println(page.getNumberOfElements());
     }
@@ -120,7 +116,7 @@ public class JpaSampleApplicationTest {
     @Test
     public void testFindByName() {
         Employee employee = employeeRepository.findByName("Fanlychie1");
-        assertNotNull(employee);
+        assertThat(employee).isNotNull();
         System.out.println(employee);
     }
 
@@ -131,9 +127,7 @@ public class JpaSampleApplicationTest {
     public void testFindBySexOrderByCreateTimeDesc() {
         Page<Employee> page = employeeRepository.findBySexOrderByCreateTimeDesc(Sex.MALE,
                 PageRequest.of(0, 10));
-        for (Employee employee : page.getContent()) {
-            System.out.println(employee);
-        }
+        page.getContent().forEach(System.out::println);
     }
 
     /**
@@ -142,9 +136,7 @@ public class JpaSampleApplicationTest {
     @Test
     public void testSelectBySex() {
         List<Employee> es = employeeRepository.selectBySex(Sex.FEMALE);
-        for (Employee e : es) {
-            System.out.println(e);
-        }
+        es.forEach(System.out::println);
     }
 
     /**
@@ -156,9 +148,7 @@ public class JpaSampleApplicationTest {
                 LocalDate.of(2018, Month.JUNE, 1)
                         .atStartOfDay(ZoneId.systemDefault())
                         .toInstant()));
-        for (Employee e : es) {
-            System.out.println(e);
-        }
+        es.forEach(System.out::println);
     }
 
     /**
@@ -167,7 +157,7 @@ public class JpaSampleApplicationTest {
     @Test
     public void testSelectNativeByName() {
         Employee employee = employeeRepository.selectNativeByName("Fanlychie1");
-        assertNotNull(employee);
+        assertThat(employee).isNotNull();
         System.out.println(employee);
     }
 
@@ -178,9 +168,7 @@ public class JpaSampleApplicationTest {
     public void testSelectPaginationBySex() {
         Page<Employee> page = employeeRepository.selectPaginationBySex(Sex.MALE,
                 PageRequest.of(0, 10, DESC, "age"));
-        for (Employee employee : page.getContent()) {
-            System.out.println(employee);
-        }
+        page.getContent().forEach(System.out::println);
     }
 
     /**
@@ -190,9 +178,7 @@ public class JpaSampleApplicationTest {
     public void testSelectNativePaginationBySex() {
         Page<Employee> page = employeeRepository.selectNativePaginationBySex(Sex.MALE.ordinal(),
                 PageRequest.of(0, 10, DESC, "age"));
-        for (Employee employee : page.getContent()) {
-            System.out.println(employee);
-        }
+        page.getContent().forEach(System.out::println);
     }
 
     @Test
