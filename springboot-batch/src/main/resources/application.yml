@@ -24,7 +24,7 @@ spring:
   batch:
     job:
       # 是否在启动时执行所有的批处理作业
-      enabled: true
+      enabled: false
     # 批处理内置使用的表的前缀名
     table-prefix: BATCH_
     # 是否生成批处理内置使用的表结构

@@ -11,9 +11,10 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Created by fanlychie on 2019/7/23.
+ * 客户实体
  *
  * @author fanlychie
+ * @since 2019/8/18
  */
 @Data
 @Entity

@@ -5,9 +5,10 @@ import com.github.fanlychie.excelutils.spec.Align;
 import lombok.Data;
 
 /**
- * Created by fanlychie on 2019/7/23.
+ * 客户实例DTO
  *
  * @author fanlychie
+ * @since 2019/8/18
  */
 @Data
 public class CustomerDto {

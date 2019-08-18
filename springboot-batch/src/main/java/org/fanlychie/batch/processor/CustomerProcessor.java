@@ -6,21 +6,27 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
- * Created by fanlychie on 2019/7/23.
+ * 数据处理器
+ *
  * @author fanlychie
+ * @since 2019/8/18
  */
 @Component
-public class CustomerProcessor implements ItemProcessor<Customer, CustomerDto> {
+public class CustomerProcessor implements ItemProcessor<List<CustomerDto>, List<Customer>> {
 
     // 数据处理
     @Override
-    public CustomerDto process(Customer item) throws Exception {
-        CustomerDto dto = new CustomerDto();
-        BeanUtils.copyProperties(item, dto);
-        return dto;
+    public List<Customer> process(List<CustomerDto> items) throws Exception {
+        List<Customer> customers = new ArrayList<>();
+        for (CustomerDto item : items) {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(item, customer);
+            customers.add(customer);
+        }
+        return customers;
     }
 
 }

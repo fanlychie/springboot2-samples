@@ -6,8 +6,10 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by fanlychie on 2019/7/23.
+ * Job 监听器
+ *
  * @author fanlychie
+ * @since 2019/8/18
  */
 @Slf4j
 @Component

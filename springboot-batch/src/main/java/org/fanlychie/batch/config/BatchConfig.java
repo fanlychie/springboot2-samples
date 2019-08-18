@@ -1,24 +1,26 @@
 package org.fanlychie.batch.config;
 
-import org.fanlychie.batch.config.reader.CustomerItemReader;
-import org.fanlychie.batch.config.writer.CustomerItemWriter;
 import org.fanlychie.batch.dto.CustomerDto;
-import org.fanlychie.batch.listener.CustomerJobListener;
 import org.fanlychie.batch.entity.Customer;
+import org.fanlychie.batch.listener.CustomerJobListener;
 import org.fanlychie.batch.processor.CustomerProcessor;
+import org.fanlychie.batch.reader.CustomerReader;
+import org.fanlychie.batch.writer.CustomerWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.*;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
- * Created by fanlychie on 2019/7/23.
+ * Spring Batch 配置
+ *
  * @author fanlychie
+ * @since 2019/8/18
  */
 @Configuration
 @EnableBatchProcessing
@@ -46,18 +48,18 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step customerStep(CustomerItemReader reader, CustomerItemWriter writer, CustomerProcessor processor) {
+    public Step customerStep(CustomerReader reader, CustomerWriter writer, CustomerProcessor processor) {
         return stepBuilderFactory
                 // step 实例的名称
                 .get("customer-step")
                 // 块大小, 数据由reader读入到chunk, 满了之后发送给writer处理写出
-                .<Customer, CustomerDto>chunk(100)
+                .<List<CustomerDto>, List<Customer>>chunk(100)
                 // 读取数据
-                .reader(reader.flatFileItemReader(null))
+                .reader(reader)
                 // 处理数据
                 .processor(processor)
                 // 写出数据
-                .writer(writer.jdbcBatchItemWriter(null))
+                .writer(writer)
                 // 构建
                 .build();
     }
