@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Repeat;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
@@ -31,27 +32,27 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class JpaSampleApplicationTest {
-
-    private int count = 1;
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @Before
-    @Repeat(5)
     public void before() {
-        Employee e = new Employee();
-        e.setName("Fanlychie" + count++);
-        e.setCreateTime(new Date());
-        e.setAge(ThreadLocalRandom.current().nextInt(10) + 18);
-        e.setMarried(ThreadLocalRandom.current().nextBoolean());
-        e.setSalary(new BigDecimal(String.valueOf(ThreadLocalRandom.current().nextInt(10000) + 8000)));
-        e.setSex(ThreadLocalRandom.current().nextBoolean() ? Sex.MALE : Sex.FEMALE);
-        e.setHiredate(Date.from(LocalDate.of(2018, Month.JUNE, ThreadLocalRandom.current().nextInt(30) + 1)
-                .atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        e = employeeRepository.save(e);
-        assertThat(e.getId()).isNotNull();
+        for (int i = 1; i <= 5; i++) {
+            Employee e = new Employee();
+            e.setName("Fanlychie" + i);
+            e.setCreateTime(new Date());
+            e.setAge(ThreadLocalRandom.current().nextInt(10) + 18);
+            e.setMarried(ThreadLocalRandom.current().nextBoolean());
+            e.setSalary(new BigDecimal(String.valueOf(ThreadLocalRandom.current().nextInt(10000) + 8000)));
+            e.setSex(ThreadLocalRandom.current().nextBoolean() ? Sex.MALE : Sex.FEMALE);
+            e.setHiredate(Date.from(LocalDate.of(2018, Month.JUNE, ThreadLocalRandom.current().nextInt(30) + 1)
+                    .atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            e = employeeRepository.save(e);
+            assertThat(e.getId()).isNotNull();
+        }
     }
 
     /**

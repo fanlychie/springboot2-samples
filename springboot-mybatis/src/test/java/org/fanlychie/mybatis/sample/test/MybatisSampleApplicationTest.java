@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -19,7 +17,6 @@ import static org.assertj.core.api.Assertions.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("/application-test.yml")
 public class MybatisSampleApplicationTest {
 
     @Autowired
@@ -28,7 +25,7 @@ public class MybatisSampleApplicationTest {
     @Test
     public void testFindAll() {
         List<Employee> employees = employeeMapper.findAll();
-        assertThat(employees).isNotEmpty().isEqualTo(2);
+        assertThat(employees).isNotEmpty();
         employees.forEach(System.out::println);
     }
 
