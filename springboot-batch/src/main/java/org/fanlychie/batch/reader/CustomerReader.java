@@ -1,10 +1,5 @@
 package org.fanlychie.batch.reader;
 
-import com.github.fanlychie.excelutils.read.ExcelReaderBuilder;
-import com.github.fanlychie.excelutils.read.PagingHandler;
-import com.github.fanlychie.excelutils.write.ExcelWriterBuilder;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.fanlychie.batch.dto.CustomerDto;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -13,7 +8,8 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * 数据读取器
@@ -23,18 +19,27 @@ import java.util.List;
  */
 @Component
 @StepScope
-public class CustomerReader implements ItemReader<List<CustomerDto>> {
+public class CustomerReader implements ItemReader<String> {
+
+    private int index;
 
     @Value("#{jobParameters[filename]}")
     private String filename;
 
     @Override
-    public List<CustomerDto> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        return new ExcelReaderBuilder()
-                .stream(filename)
-                .payload(CustomerDto.class)
-                .build()
-                .read();
+    public String read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream(filename), "UTF-8"))) {
+            String read;
+            int current = 0;
+            while ((read = reader.readLine()) != null) {
+                if (current++ >= index) {
+                    index++;
+                    return read;
+                }
+            }
+        }
+        return null;
     }
 
 }

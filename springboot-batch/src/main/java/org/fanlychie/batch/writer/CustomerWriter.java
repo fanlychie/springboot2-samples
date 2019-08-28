@@ -15,16 +15,14 @@ import java.util.List;
  * @since 2019/8/18
  */
 @Component
-public class CustomerWriter implements ItemWriter<List<Customer>> {
+public class CustomerWriter implements ItemWriter<Customer> {
 
     @Autowired
     private CustomerRepository customerRepository;
 
     @Override
-    public void write(List<? extends List<Customer>> items) throws Exception {
-        for (List<Customer> item : items) {
-            customerRepository.saveAll(item);
-        }
+    public void write(List<? extends Customer> items) throws Exception {
+        customerRepository.saveAll(items);
     }
 
 }

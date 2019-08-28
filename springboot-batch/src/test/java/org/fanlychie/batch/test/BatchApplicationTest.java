@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Description
+ * 单元测试
  *
  * @author fanlychie
  * @since 2019/8/19
@@ -24,11 +24,9 @@ public class BatchApplicationTest {
 
     @Test
     public void testStartup() throws Exception {
-        launcher.startup("/customers1.xlsx");
-        TimeUnit.SECONDS.sleep(10);
-        launcher.startup("/customers2.xlsx");
-        TimeUnit.SECONDS.sleep(30);
+        launcher.startup("/customers1.data");
+        launcher.startup("/customers2.data");
+        TimeUnit.SECONDS.sleep(60);
     }
-
 
 }

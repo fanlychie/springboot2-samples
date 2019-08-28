@@ -8,12 +8,6 @@
     </parent>
     <artifactId>springboot-batch</artifactId>
     <packaging>jar</packaging>
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
     <dependencies>
         <!-- batch -->
         <dependency>
@@ -42,12 +36,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <!-- excel -->
-        <dependency>
-            <groupId>com.github.fanlychie</groupId>
-            <artifactId>excelutils</artifactId>
-            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>
