@@ -36,6 +36,7 @@
         <module>springboot-security-jwt</module>
         <module>springboot-thymeleaf</module>
         <module>springboot-testing</module>
+        <module>springboot-multiple-datasource</module>
     </modules>
     <build>
         <plugins>
