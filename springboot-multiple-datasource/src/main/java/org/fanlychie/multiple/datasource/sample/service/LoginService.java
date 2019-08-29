@@ -18,7 +18,10 @@ public class LoginService {
     private ProductRepository productRepository;
 
     public List<Product> login(String name) {
-
+        if (userRepository.findByName(name) != null) {
+            return productRepository.findAll();
+        }
+        throw new RuntimeException("用户不存在");
     }
 
 }
