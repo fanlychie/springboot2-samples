@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class LoginServiceTest {
@@ -20,6 +22,7 @@ public class LoginServiceTest {
     @Test
     public void testLogin() {
         List<Product> products = loginService.login("张三");
+        assertThat(products).isNotEmpty().size().isEqualTo(2);
         products.forEach(System.out::println);
     }
 

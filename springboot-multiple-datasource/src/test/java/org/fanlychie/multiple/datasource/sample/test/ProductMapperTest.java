@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductMapperTest {
@@ -19,8 +21,9 @@ public class ProductMapperTest {
 
     @Test
     public void testFindAll() {
-        List<Product> users = productMapper.findAll();
-        users.forEach(System.out::println);
+        List<Product> products = productMapper.findAll();
+        assertThat(products).isNotEmpty().size().isEqualTo(2);
+        products.forEach(System.out::println);
     }
 
 }
