@@ -1,7 +1,7 @@
 package org.fanlychie.multiple.datasource.sample.test;
 
-import org.fanlychie.multiple.datasource.sample.dao.test1.UserRepository;
-import org.fanlychie.multiple.datasource.sample.entity.User;
+import org.fanlychie.multiple.datasource.sample.entity.db2.Product;
+import org.fanlychie.multiple.datasource.sample.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserRepositoryTest {
+public class LoginServiceTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private LoginService loginService;
 
     @Test
-    public void testFindAll() {
-        List<User> users = userRepository.findAll();
-        users.forEach(System.out::println);
+    public void testLogin() {
+        List<Product> products = loginService.login("张三");
+        products.forEach(System.out::println);
     }
 
 }

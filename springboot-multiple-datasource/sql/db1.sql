@@ -1,17 +1,17 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for t_product
+-- Table structure for t_user
 -- ----------------------------
-DROP TABLE IF EXISTS `t_product`;
-CREATE TABLE `t_product` (
+DROP TABLE IF EXISTS `T_USER`;
+CREATE TABLE `T_USER` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(32) NOT NULL,
+  `NAME` varchar(16) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of t_product
+-- Records of t_user
 -- ----------------------------
-INSERT INTO `t_product` VALUES ('1', '产品1');
-INSERT INTO `t_product` VALUES ('2', '产品2');
+INSERT INTO `T_USER` VALUES ('1', '张三');
+INSERT INTO `T_USER` VALUES ('2', '李四');

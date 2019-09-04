@@ -1,8 +1,8 @@
 package org.fanlychie.multiple.datasource.sample.service;
 
-import org.fanlychie.multiple.datasource.sample.dao.test1.UserRepository;
-import org.fanlychie.multiple.datasource.sample.dao.test2.ProductRepository;
-import org.fanlychie.multiple.datasource.sample.entity.Product;
+import org.fanlychie.multiple.datasource.sample.entity.db2.Product;
+import org.fanlychie.multiple.datasource.sample.mapper.db1.UserMapper;
+import org.fanlychie.multiple.datasource.sample.mapper.db2.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.List;
 public class LoginService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductMapper productMapper;
 
     public List<Product> login(String name) {
-        if (userRepository.findByName(name) != null) {
-            return productRepository.findAll();
+        if (userMapper.findByName(name) != null) {
+            return productMapper.findAll();
         }
         throw new RuntimeException("用户不存在");
     }
