@@ -37,6 +37,7 @@
         <module>springboot-thymeleaf</module>
         <module>springboot-testing</module>
         <module>springboot-multiple-datasource</module>
+        <module>springboot-multiple-datasource-aop</module>
     </modules>
     <build>
         <plugins>
