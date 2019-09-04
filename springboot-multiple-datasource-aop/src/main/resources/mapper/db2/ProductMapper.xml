@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="org.fanlychie.multiple.datasource.sample.mapper.db2.ProductMapper">
+
+	<select id="findAll" resultMap="ProductResultMap">
+		SELECT * FROM T_PRODUCT
+	</select>
+
+	<resultMap id="ProductResultMap" type="org.fanlychie.multiple.datasource.sample.entity.db2.Product">
+		<id property="id" column="ID" />
+		<result property="name" column="NAME" />
+	</resultMap>
+
+</mapper>
