@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MultipleDataSourceSampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MultipleDataSourceSampleApplication.class);
+        SpringApplication.run(MultipleDataSourceSampleApplication.class, args);
     }
 
 }

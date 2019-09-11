@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MultipleDataSourceAOPSampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MultipleDataSourceAOPSampleApplication.class);
+        SpringApplication.run(MultipleDataSourceAOPSampleApplication.class, args);
     }
 
 }
