@@ -1,7 +1,7 @@
 package org.fanlychie.multiple.datasource.sample.test;
 
-import org.fanlychie.multiple.datasource.sample.entity.db2.Product;
-import org.fanlychie.multiple.datasource.sample.mapper.db2.ProductMapper;
+import org.fanlychie.multiple.datasource.sample.entity.Product;
+import org.fanlychie.multiple.datasource.sample.mapper.ProductMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

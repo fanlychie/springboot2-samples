@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="org.fanlychie.multiple.datasource.sample.mapper.db1.UserMapper">
+ <mapper namespace="org.fanlychie.multiple.datasource.sample.mapper.UserMapper">
 
 	<select id="findAll" resultMap="UserResultMap">
 		SELECT * FROM T_USER
@@ -11,7 +11,7 @@
 		SELECT * FROM T_USER WHERE NAME = #{name}
 	</select>
 
-	<resultMap id="UserResultMap" type="org.fanlychie.multiple.datasource.sample.entity.db1.User">
+	<resultMap id="UserResultMap" type="org.fanlychie.multiple.datasource.sample.entity.User">
 		<id property="id" column="ID" />
 		<result property="name" column="NAME" />
 	</resultMap>

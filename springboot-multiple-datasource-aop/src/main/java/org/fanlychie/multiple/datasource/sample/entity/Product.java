@@ -1,4 +1,4 @@
-package org.fanlychie.multiple.datasource.sample.entity.db2;
+package org.fanlychie.multiple.datasource.sample.entity;
 
 import lombok.Data;
 

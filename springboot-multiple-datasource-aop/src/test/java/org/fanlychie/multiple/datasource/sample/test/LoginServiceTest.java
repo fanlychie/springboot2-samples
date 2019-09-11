@@ -1,6 +1,6 @@
 package org.fanlychie.multiple.datasource.sample.test;
 
-import org.fanlychie.multiple.datasource.sample.entity.db2.Product;
+import org.fanlychie.multiple.datasource.sample.entity.Product;
 import org.fanlychie.multiple.datasource.sample.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
