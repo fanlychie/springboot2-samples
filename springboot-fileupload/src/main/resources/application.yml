@@ -1,0 +1,18 @@
+## tomcat 配置
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  # 运行时端口
+  port: 8080
+  # 连接超时时间
+  connection-timeout: 5000
+  servlet:
+    # 上下文访问路径
+    context-path: /
+
+## 文件大小设置
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB

@@ -39,6 +39,7 @@
         <module>springboot-multiple-datasource</module>
         <module>springboot-multiple-datasource-aop</module>
         <module>springboot-scheduled</module>
+        <module>springboot-fileupload</module>
     </modules>
     <build>
         <plugins>
