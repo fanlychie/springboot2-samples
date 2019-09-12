@@ -38,6 +38,7 @@
         <module>springboot-testing</module>
         <module>springboot-multiple-datasource</module>
         <module>springboot-multiple-datasource-aop</module>
+        <module>springboot-scheduled</module>
     </modules>
     <build>
         <plugins>

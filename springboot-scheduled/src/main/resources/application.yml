@@ -1,0 +1,4 @@
+spring:
+  scheduled:
+    fixed-rate-demo: 2000
+    fixed-delay-demo: 2000
