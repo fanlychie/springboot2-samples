@@ -40,6 +40,7 @@
         <module>springboot-multiple-datasource-aop</module>
         <module>springboot-scheduled</module>
         <module>springboot-fileupload</module>
+        <module>springboot-filedownload</module>
     </modules>
     <build>
         <plugins>
