@@ -41,6 +41,7 @@
         <module>springboot-scheduled</module>
         <module>springboot-fileupload</module>
         <module>springboot-filedownload</module>
+        <module>springboot-async</module>
     </modules>
     <build>
         <plugins>
